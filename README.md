@@ -1,0 +1,1 @@
+A lighthouse stands on a rocky island at dusk, its beam of light becoming a glowing rollercoaster track racing down toward a starry sea. Run `node main.ts` to copy the image to `$MAKEFUN_OUTPUT_DIR/entry.png` (the output directory defaults to `/output`).
