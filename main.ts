@@ -1,13 +1,15 @@
-import { existsSync, mkdirSync, copyFileSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const source = join(dirname(import.meta.filename), 'entry.png');
+const source = join(import.meta.dirname, 'entry.png');
+const destination = join(process.env.MAKEFUN_OUTPUT_DIR ?? '/output', 'entry.png');
+
 if (!existsSync(source)) {
-  throw new Error('Missing entry.png: place the entry image next to main.ts.');
+  throw new Error('Missing entry.png next to main.ts.');
 }
 if (statSync(source).size === 0) {
-  throw new Error('Empty entry.png: the entry image must contain image data.');
+  throw new Error('entry.png is empty (0 bytes); cannot copy an empty entry.');
 }
-const output = join(process.env.MAKEFUN_OUTPUT_DIR ?? '/output', 'entry.png');
-mkdirSync(dirname(output), { recursive: true });
-copyFileSync(source, output);
+
+mkdirSync(dirname(destination), { recursive: true });
+copyFileSync(source, destination);
